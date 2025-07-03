@@ -212,9 +212,7 @@ void arm::setArchNameInTriple(const Driver &D, const ArgList &Args,
   bool ThumbDefault = IsMProfile ||
                       // Thumb2 is the default for V7 on Darwin.
                       (llvm::ARM::parseArchVersion(Suffix) == 7 &&
-                       Triple.isOSBinFormatMachO()) ||
-                      // FIXME: this is invalid for WindowsCE
-                      Triple.isOSWindows();
+                       Triple.isOSBinFormatMachO());
 
   // Check if ARM ISA was explicitly selected (using -mno-thumb or -marm) for
   // M-Class CPUs/architecture variants, which is not supported.
@@ -261,9 +259,9 @@ void arm::setArchNameInTriple(const Driver &D, const ArgList &Args,
   }
 
   // Assembly files should start in ARM mode, unless arch is M-profile, or
-  // -mthumb has been passed explicitly to the assembler. Windows is always
-  // thumb.
-  if (IsThumb || IsMProfile || Triple.isOSWindows()) {
+  // -mthumb has been passed explicitly to the assembler. Windows RT 8.1 is always
+  // thumb. But not Windows 10!
+  if (IsThumb || IsMProfile) {
     if (IsBigEndian)
       ArchName = "thumbeb";
     else
@@ -329,7 +327,6 @@ arm::FloatABI arm::getDefaultFloatABI(const llvm::Triple &Triple) {
   case llvm::Triple::WatchOS:
     return FloatABI::Hard;
 
-  // FIXME: this is invalid for WindowsCE
   case llvm::Triple::Win32:
     // It is incorrect to select hard float ABI on MachO platforms if the ABI is
     // "apcs-gnu".

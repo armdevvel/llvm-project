@@ -313,6 +313,7 @@ bool mingw::link(ArrayRef<const char *> argsArr, llvm::raw_ostream &stdoutOS,
     add("-noseh");
 
   if (args.getLastArgValue(OPT_m) != "thumb2pe" &&
+      args.getLastArgValue(OPT_m) != "armpe" &&
       args.getLastArgValue(OPT_m) != "arm64pe" &&
       args.hasFlag(OPT_disable_dynamicbase, OPT_dynamicbase, false))
     add("-dynamicbase:no");
@@ -368,7 +369,7 @@ bool mingw::link(ArrayRef<const char *> argsArr, llvm::raw_ostream &stdoutOS,
       add("-machine:x86");
     else if (s == "i386pep")
       add("-machine:x64");
-    else if (s == "thumb2pe")
+    else if (s == "armpe" || s == "thumb2pe")
       add("-machine:arm");
     else if (s == "arm64pe")
       add("-machine:arm64");

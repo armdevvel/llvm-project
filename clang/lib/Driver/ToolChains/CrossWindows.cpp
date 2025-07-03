@@ -96,8 +96,9 @@ void tools::CrossWindows::Linker::ConstructJob(
   default:
     llvm_unreachable("unsupported architecture");
   case llvm::Triple::arm:
+    CmdArgs.push_back("armpe");
+    break;
   case llvm::Triple::thumb:
-    // FIXME: this is incorrect for WinCE
     CmdArgs.push_back("thumb2pe");
     break;
   case llvm::Triple::aarch64:

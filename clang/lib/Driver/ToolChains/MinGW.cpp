@@ -127,8 +127,9 @@ void tools::MinGW::Linker::ConstructJob(Compilation &C, const JobAction &JA,
     CmdArgs.push_back("i386pep");
     break;
   case llvm::Triple::arm:
+    CmdArgs.push_back("armpe");
+    break;
   case llvm::Triple::thumb:
-    // FIXME: this is incorrect for WinCE
     CmdArgs.push_back("thumb2pe");
     break;
   case llvm::Triple::aarch64:

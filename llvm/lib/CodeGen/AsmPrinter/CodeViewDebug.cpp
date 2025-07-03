@@ -126,9 +126,8 @@ static CPUType mapArchToCVCPUType(Triple::ArchType Type) {
     return CPUType::Pentium3;
   case Triple::ArchType::x86_64:
     return CPUType::X64;
+  case Triple::ArchType::arm:
   case Triple::ArchType::thumb:
-    // LLVM currently doesn't support Windows CE and so thumb
-    // here is indiscriminately mapped to ARMNT specifically.
     return CPUType::ARMNT;
   case Triple::ArchType::aarch64:
     return CPUType::ARM64;

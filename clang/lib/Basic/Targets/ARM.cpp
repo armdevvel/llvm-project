@@ -295,7 +295,6 @@ ARMTargetInfo::ARMTargetInfo(const llvm::Triple &Triple,
       setABI("apcs-gnu");
     }
   } else if (Triple.isOSWindows()) {
-    // FIXME: this is invalid for WindowsCE
     setABI("aapcs");
   } else {
     // Select the default based on the platform.
@@ -1269,7 +1268,6 @@ WindowsARMTargetInfo::WindowsARMTargetInfo(const llvm::Triple &Triple,
 
 void WindowsARMTargetInfo::getVisualStudioDefines(const LangOptions &Opts,
                                                   MacroBuilder &Builder) const {
-  // FIXME: this is invalid for WindowsCE
   Builder.defineMacro("_M_ARM_NT", "1");
   Builder.defineMacro("_M_ARMT", "_M_ARM");
   Builder.defineMacro("_M_THUMB", "_M_ARM");

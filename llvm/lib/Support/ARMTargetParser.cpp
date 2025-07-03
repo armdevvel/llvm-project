@@ -616,7 +616,6 @@ StringRef ARM::computeDefaultTargetABI(const Triple &TT, StringRef CPU) {
       return "aapcs16";
     return "apcs-gnu";
   } else if (TT.isOSWindows())
-    // FIXME: this is invalid for WindowsCE.
     return "aapcs";
 
   // Select the default based on the platform.
